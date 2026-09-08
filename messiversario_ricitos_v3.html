@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Para Ricitos 🍊</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;font-family:Georgia,serif}
+body{background:linear-gradient(135deg,#eef1df,#f1dcc1);color:#594735;overflow-x:hidden}
+.screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{width:min(680px,94vw);max-height:90vh;overflow:auto;background:#fffaf0;border:3px solid #a9b77e;border-radius:28px;padding:28px 24px;text-align:center;box-shadow:0 15px 45px rgba(70,50,30,.15)}
+.hidden{display:none!important}
+.animals{font-size:64px;margin-bottom:8px}
+h1{color:#667747;font-size:clamp(27px,7vw,42px);margin:8px 0 20px}
+.letter{text-align:left;font-size:17px;line-height:1.62}
+.signature{text-align:center;font-weight:bold;font-size:19px;color:#7b654c}
+.btn{border:0;border-radius:999px;padding:15px 28px;font-size:18px;font-weight:bold;margin-top:22px;cursor:pointer}
+#next{background:#8fa264;color:white}
+#yes{background:#8fa264;color:white}
+#no{background:#bd9e78;color:white;position:fixed;z-index:50}
+.small{font-size:14px;color:#8a765e}
+.dance{animation:dance .45s infinite alternate}
+@keyframes dance{to{transform:rotate(9deg) translateY(-9px)}}
+.conf{position:fixed;top:-30px;font-size:24px;z-index:100;animation:fall 3s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(500deg);opacity:0}}
+</style>
+</head>
+<body>
+
+<section class="screen" id="page1">
+<div class="card">
+<div class="animals">🐸 🐒</div>
+<h1>Para mi Ricitos 🤍</h1>
+<div class="letter">
+Hola mi amor, ya cumplimos hoy <b>10 de septiembre</b> nuestro primer mes y sé que es el primero de muchos, muchísimos más; posiblemente el primer mes de los próximos 80 años, porque en esta vida y las próximas solamente quiero que seas tú, y nadie más que tú.<br><br>
+No me cansaré nunca de repetirlo: eres la luz que ilumina mi vida, que cuando mi mundo se derrumba eres el único motivo para seguir adelante. Cada buenos días, buenas noches, cómo estás, te amo y todo lo que representas me envuelve y soy incapaz de nadar contra corriente porque tú me haces tanto bien que no te puedes hacer una mínima idea.<br><br>
+No te vayas nunca de mi vida porque no me pienso ir de la tuya, y sé que estamos a distancia y pues no puedo regalarte nada lo suficientemente bueno como tú, así que preferí invertir mi tiempo en algo que es solamente para ti.
+<br><br><div class="signature">Feliz 1er Messiversario, Ricitos 🤍</div><br>
+Espero que siempre me elijas para acompañarte en tu vida.
+</div>
+<button class="btn" id="next">Siguiente 🍊</button>
+</div>
+</section>
+
+<section class="screen hidden" id="page2">
+<div class="card">
+<div class="animals">🐸 🐒</div>
+<h1>Después de todo esto…</h1>
+<p style="font-size:25px"><b>¿Quieres ser mi naranja completa? 🍊🤍</b></p>
+<button class="btn" id="yes">SÍ 😋💕</button>
+<button class="btn" id="no">NO 🙈</button>
+<p class="small">Pista: solo hay una respuesta correcta… 👀</p>
+</div>
+</section>
+
+<section class="screen hidden" id="page3">
+<div class="card">
+<div class="animals dance">🐸 🐒</div>
+<div style="font-size:32px">🍊🤍🍊</div>
+<h1>¡SABÍA QUE DIRÍAS QUE SÍ! 😋💕</h1>
+<p style="font-size:22px;line-height:1.5">Entonces queda oficialmente confirmado:<br><br><b>🐸 + 🐒 = 🍊🍊</b><br><br>Naranjas completas para siempre. 🤍</p>
+<p style="font-size:18px">Te amo, Ricitos. Feliz primer mes de los próximos 80 años. 🥹🤍</p>
+</div>
+</section>
+
+<script>
+(function(){
+  function byId(id){ return document.getElementById(id); }
+
+  byId("next").onclick=function(){
+    byId("page1").classList.add("hidden");
+    byId("page2").classList.remove("hidden");
+    moveNo();
+  };
+
+  function moveNo(){
+    var b=byId("no");
+    var maxX=Math.max(10,window.innerWidth-b.offsetWidth-10);
+    var maxY=Math.max(10,window.innerHeight-b.offsetHeight-10);
+    b.style.left=(10+Math.random()*(maxX-10))+"px";
+    b.style.top=(10+Math.random()*(maxY-10))+"px";
+  }
+
+  byId("no").addEventListener("pointerdown",function(e){
+    e.preventDefault();
+    moveNo();
+  });
+
+  byId("no").addEventListener("mouseenter",moveNo);
+
+  byId("yes").onclick=function(){
+    byId("page2").classList.add("hidden");
+    byId("page3").classList.remove("hidden");
+    var symbols=["🤍","💚","🍊","🐸","🐒","✨"];
+    for(var i=0;i<45;i++){
+      var x=document.createElement("div");
+      x.className="conf";
+      x.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+      x.style.left=(Math.random()*100)+"vw";
+      x.style.animationDelay=(Math.random()*1.2)+"s";
+      document.body.appendChild(x);
+      setTimeout(function(el){return function(){el.remove()}}(x),4500);
+    }
+  };
+})();
+</script>
+</body>
+</html>
