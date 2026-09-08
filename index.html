@@ -52,7 +52,10 @@ h1{font-family:Arial,sans-serif;color:#718451;font-size:clamp(24px,7vw,39px);mar
 @keyframes floaty{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(-10px);opacity:1}}
 .corner{position:absolute;z-index:2;font-size:clamp(28px,8vw,52px);filter:drop-shadow(0 4px 7px rgba(0,0,0,.2));opacity:.95}
 .c1{top:12px;left:12px}.c2{top:12px;right:12px}.c3{bottom:10px;left:14px}.c4{bottom:10px;right:14px}
-@media(max-height:700px){.page1-card{padding:13px 17px}.letter{font-size:11.5px;line-height:1.27}.letter p{margin-bottom:6px}.animals{font-size:39px}h1{font-size:25px;margin-bottom:5px}.signature{font-size:15px}.btn{padding:8px 19px;font-size:14px}.hearts-row{min-height:145px;gap:12px}.heart-btn,#no{width:118px;height:105px}.heart-btn:before,.heart-btn:after,.heart-btn .heart-shape{width:70px;height:70px}.heart-btn:before{left:24px;top:18px}.heart-btn:after{left:59px;top:18px}.heart-btn .heart-shape{left:24px;top:53px}.heart-btn .heart-text{font-size:20px;padding-top:41px}}
+
+.letter-card{background:rgba(255,249,235,.97);color:#4b4035;border-color:#d9a15b;width:min(760px,96vw);padding:24px 22px 18px;box-shadow:0 0 0 5px rgba(255,220,155,.10),0 22px 70px rgba(0,0,0,.42)}
+.letter-card h1{color:#6f7f4d;text-shadow:none;margin-bottom:8px}.letter-card .animals{margin-bottom:3px}.letter{font-family:Arial,sans-serif;font-size:15px;line-height:1.38;text-align:left;flex:1;display:flex;flex-direction:column;justify-content:center}.letter p{margin:0 0 10px}.letter p:last-child{margin-bottom:0}.letter .signature{text-align:center;color:#7a5635;font-weight:700;margin-top:2px}.letter .signature span{font-weight:400;color:#5b5146;font-size:.92em}.letter-card .btn{align-self:center;margin-top:10px}
+@media(max-height:700px){.page1-card{padding:13px 17px}.letter{font-size:12px;line-height:1.28}.letter p{margin-bottom:6px}.animals{font-size:39px}h1{font-size:25px;margin-bottom:5px}.signature{font-size:15px}.btn{padding:8px 19px;font-size:14px}.hearts-row{min-height:145px;gap:12px}.heart-btn,#no{width:118px;height:105px}.heart-btn:before,.heart-btn:after,.heart-btn .heart-shape{width:70px;height:70px}.heart-btn:before{left:24px;top:18px}.heart-btn:after{left:59px;top:18px}.heart-btn .heart-shape{left:24px;top:53px}.heart-btn .heart-text{font-size:20px;padding-top:41px}}
 </style>
 </head>
 <body>
@@ -79,6 +82,21 @@ h1{font-family:Arial,sans-serif;color:#718451;font-size:clamp(24px,7vw,39px);mar
 </section>
 
 <section class="screen hidden" id="page2">
+<div class="corner c1">🍊</div><div class="corner c2">✨</div><div class="corner c3">🐸</div><div class="corner c4">🐒</div>
+<div class="card letter-card">
+  <div class="animals">🐸 ♡ 🐒</div>
+  <h1>Para ti, mi amor 🤎</h1>
+  <div class="letter">
+    <p>Hola mi amor, ya cumplimos hoy 10 de septiembre nuestro primer mes y sé que es el primero de muchos, muchísimos más; posiblemente el primer mes de los próximos 80 años, porque en esta vida y las próximas solamente quiero que seas tú, y nadie más que tú.</p>
+    <p>No me cansaré nunca de repetirlo: eres la luz que ilumina mi vida, que cuando mi mundo se derrumba eres el único motivo para seguir adelante. Cada buenos días, buenas noches, cómo estás, te amo y todo lo que representas me envuelve y soy incapaz de nadar contra corriente porque tú me haces tanto bien que no te puedes hacer una mínima idea.</p>
+    <p>No te vayas nunca de mi vida porque no me pienso ir de la tuya, y sé que estamos a distancia y pues no puedo regalarte nada lo suficientemente bueno como tú, así que preferí invertir mi tiempo en algo que es solamente para ti.</p>
+    <p class="signature">Feliz 1er Messiversario, Ricitos 🤍<br><span>Espero que siempre me elijas para acompañarte en tu vida.</span></p>
+  </div>
+  <button class="btn" id="toQuestion">🍊 Continuar mi sorpresa ✨</button>
+</div>
+</section>
+
+<section class="screen hidden" id="page3">
 <div class="corner c1">🍊</div><div class="corner c2">💚</div><div class="corner c3">✨</div><div class="corner c4">🍊</div>
 <div class="card">
   <div class="animals">🐸 ♡ 🐒</div>
@@ -92,7 +110,7 @@ h1{font-family:Arial,sans-serif;color:#718451;font-size:clamp(24px,7vw,39px);mar
 </div>
 </section>
 
-<section class="screen hidden" id="page3">
+<section class="screen hidden" id="page4">
 <div class="card final-card">
 <h1>¡SABÍA QUE DIRÍAS QUE SÍ! 😋💕</h1>
 <p class="final-msg">Entonces queda oficialmente confirmado:<br><b>🐸 + 🐒 = 🍊🍊</b><br>Naranjas completas para siempre. 🤍</p>
@@ -104,44 +122,49 @@ h1{font-family:Arial,sans-serif;color:#718451;font-size:clamp(24px,7vw,39px);mar
 <script>
 (function(){
   function byId(id){ return document.getElementById(id); }
+  var music=byId("bgMusic");
+  var started=false;
 
-  byId("openEnvelope").onclick=function(){
-    var env=byId("envelope");
-    var music=byId("bgMusic");
-    env.classList.add("open");
+  function startMusic(){
+    if(started) return;
+    started=true;
     try {
       music.currentTime=76;
       var playPromise=music.play();
-      if(playPromise && playPromise.catch){ playPromise.catch(function(){}); }
-    } catch(e) {}
-    setTimeout(function(){
-      byId("page1").classList.add("hidden");
-      byId("page2").classList.remove("hidden");
-      moveNo();
-    },1250);
+      if(playPromise && playPromise.catch){ playPromise.catch(function(){ started=false; }); }
+    } catch(e) { started=false; }
+  }
+
+  function show(from,to){
+    byId(from).classList.add("hidden");
+    byId(to).classList.remove("hidden");
+  }
+
+  byId("openEnvelope").onclick=function(){
+    startMusic();
+    byId("envelope").classList.add("open");
+    setTimeout(function(){ show("page1","page2"); },1250);
   };
 
-  // Mantiene compatibilidad si existe un botón next en otra versión
-  if(byId("next")){ byId("next").onclick=function(){ byId("openEnvelope").click(); }; }
+  byId("toQuestion").onclick=function(){
+    startMusic();
+    show("page2","page3");
+    moveNo();
+  };
 
   function moveNo(){
     var b=byId("no");
     var maxX=Math.max(10,window.innerWidth-b.offsetWidth-10);
     var maxY=Math.max(10,window.innerHeight-b.offsetHeight-10);
-    b.style.left=(10+Math.random()*(maxX-10))+"px";
-    b.style.top=(10+Math.random()*(maxY-10))+"px";
+    b.style.left=(10+Math.random()*Math.max(0,maxX-10))+"px";
+    b.style.top=(10+Math.random()*Math.max(0,maxY-10))+"px";
   }
 
-  byId("no").addEventListener("pointerdown",function(e){
-    e.preventDefault();
-    moveNo();
-  });
-
+  byId("no").addEventListener("pointerdown",function(e){ e.preventDefault(); moveNo(); });
   byId("no").addEventListener("mouseenter",moveNo);
 
   byId("yes").onclick=function(){
-    byId("page2").classList.add("hidden");
-    byId("page3").classList.remove("hidden");
+    show("page3","page4");
     var symbols=["🤍","💚","🍊","🐸","🐒","✨"];
     for(var i=0;i<45;i++){
       var x=document.createElement("div");
@@ -150,7 +173,7 @@ h1{font-family:Arial,sans-serif;color:#718451;font-size:clamp(24px,7vw,39px);mar
       x.style.left=(Math.random()*100)+"vw";
       x.style.animationDelay=(Math.random()*1.2)+"s";
       document.body.appendChild(x);
-      setTimeout(function(el){return function(){el.remove()}}(x),4500);
+      setTimeout(function(el){return function(){el.remove();}}(x),4500);
     }
   };
 })();
